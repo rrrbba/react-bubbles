@@ -17,6 +17,7 @@ const ColorList = ({ colors, updateColors }) => {
     setColorToEdit(color);
   };
 
+
   const saveEdit = e => {
     e.preventDefault();
     // Make a put request to save your updated color
@@ -34,8 +35,9 @@ const ColorList = ({ colors, updateColors }) => {
   const deleteColor = color => {
     // make a delete request to delete this color
     axiosWithAuth().delete(`colors/${color.id}`)
-    .then(res => console.log(res))
-    .catch(err => console.log("FAILED DELETE", err))
+      .then(res => updateColors(colors.filter(item => 
+        item.id !== color.id)))
+      .catch(err => console.log("DELETE FAILED", err))
   };
 
   return (
